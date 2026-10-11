@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "commands.h"
+#include "command_registry.h"
 
 TEST(CommandsTest, SetReturnsOk) {
     Storage s;
@@ -40,4 +41,16 @@ TEST(CommandsTest, DelCountsRemovedKeys) {
     Response r = cmd.execute(s, {"Del", "a", "x"});
     EXPECT_EQ(r.type, Response::Type::Integer);
     EXPECT_EQ(r.number, 1);   
+}
+
+TEST(RegistryTest, RegistryFindsKnownCommand) {
+    CommandRegistry registry;
+    Command* cmd = registry.find("GET");
+    EXPECT_NE(cmd, nullptr);       
+}
+
+TEST(RegistryTest, RegistryReturnsNullForUnknown) {
+    CommandRegistry registry;
+    Command* cmd = registry.find("David");
+    EXPECT_EQ(cmd, nullptr);      
 }
