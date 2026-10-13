@@ -25,7 +25,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
-add_executable(tests tests/storage_test.cpp tests/commands_test.cpp)
+   add_executable(tests tests/storage_test.cpp tests/commands_test.cpp tests/parser_test.cpp)
 target_link_libraries(tests PRIVATE miniredis_core GTest::gtest_main)
 include(GoogleTest)
 gtest_discover_tests(tests)
