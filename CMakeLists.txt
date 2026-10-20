@@ -10,6 +10,7 @@ add_library(miniredis_core
     src/commands.cpp
     src/command_registry.cpp
     src/parser.cpp
+    src/resp.cpp              
 )
 target_include_directories(miniredis_core PUBLIC src)
 
@@ -25,7 +26,12 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
-   add_executable(tests tests/storage_test.cpp tests/commands_test.cpp tests/parser_test.cpp)
+add_executable(tests
+    tests/storage_test.cpp
+    tests/commands_test.cpp
+    tests/parser_test.cpp
+    tests/resp_test.cpp      
+)
 target_link_libraries(tests PRIVATE miniredis_core GTest::gtest_main)
 include(GoogleTest)
 gtest_discover_tests(tests)
